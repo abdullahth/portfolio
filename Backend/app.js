@@ -1,6 +1,7 @@
 // api endpoints
 const express = require('express')
 const endpoints = express()
+endpoints.use(express.json())
 // require('./plugins/route_reg.js')(endpoint)
 
 // server

@@ -1,0 +1,19 @@
+{
+  "name": "portfolio_backend",
+  "version": "1.0.0",
+  "description": "Backend Application for Athena Digital Solutions Portfolio website",
+  "main": "app.js",
+  "scripts": {
+    "debug": "nodemon start app.js"
+  },
+  "author": "Athena Digital Solutions",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.13.7",
+    "multer": "^1.4.3",
+    "nodemailer": "^6.6.3",
+    "nodemon": "^2.0.12",
+    "socket.io": "^4.1.3"
+  }
+}

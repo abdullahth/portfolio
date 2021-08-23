@@ -11,6 +11,7 @@
   
     - Package
         Sub Object for Product Object contains the packages data:
+            - name
             - Description
             - Components
             - Delivery Date

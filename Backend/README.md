@@ -34,6 +34,7 @@
 
 ## Routes
     - product/
-    - service/
     - client/
     - offers/
+    - process/
+    - order/

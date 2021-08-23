@@ -23,7 +23,10 @@
         Offer data with product and package id as important paramaters
 
     - Client
-        Client Name, Products Ordered, Packages Ordered, First Probosal
+        Client Name, Orders, First Order Date, Client Email, Client Access Code
+
+    - Order
+        Client Id, Product Id, Packages Id, Offers Added, Placement Date, Delivery Date, Gallery Images
 
     - Process
         For Clients who already have open contracts the model contains the current step of the project to track process from client.

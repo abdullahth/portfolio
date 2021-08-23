@@ -2,7 +2,7 @@
 const express = require('express')
 const endpoints = express()
 endpoints.use(express.json())
-// require('./plugins/route_reg.js')(endpoint)
+require('./plugins/route_reg.js')(endpoints)
 
 // server
 const http = require('http')

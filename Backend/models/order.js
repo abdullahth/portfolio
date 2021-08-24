@@ -31,7 +31,11 @@ module.exports = mongoose.model('Order', new mongoose.Schema({
     delivery: {
         type: Date,
         required: true,
-        default: null, 
+        default: null,
+    },
+    orderStatus: {
+        type: Number,
+        required: true,
     }
 
 }))

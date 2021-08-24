@@ -18,7 +18,7 @@ const io = require('socket.io')(server)
 
 // database plugin
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost:portfolio', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost/portfolio', { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.connection.once('open', () => console.log(`[Database] Database Initialized Successfully!`))
 mongoose.connection.on('error', (error) => console.log(`[Database] ${error}`))
 

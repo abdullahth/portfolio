@@ -1,30 +1,32 @@
 const express = require('express')
 const models = require('../plugins/models')
+const mongoose = require('mongoose')
 
 const logMsg = (body) => `[Products Router] ${body}`
 
 const Plugins = {
-    getProductById: async (req, res) => {
-        const id = req.params
+    getProductById: async (req, res, next) => {
+        const id = req.params.id
         try {
             const product = await models.Product.findOne({ _id: id })
             if (!product) return res.status(404).json({ msg: logMsg('Product not found!') })
 
-            const packages = []
-            for (const element in product.packages) {
-                const package = await models.Package.findOne({ _id: element })
-                if (package !== null) {
-                    packages.push(package)
-                }
+            // const packages = []
+            // for (const element in product.packages) {
+            //     const package = await models.Package.findOne({ _id: element })
+            //     if (package !== null) {
+            //         packages.push(package)
+            //     }
 
-
-            }
-            product.packages = packages
+            // }
+            // product.packages = packages
+            console.log(product)
             res.product = product
 
         } catch (error) {
             return res.status(500).json({ msg: logMsg(error) })
         }
+        next()
     },
 }
 
@@ -62,7 +64,9 @@ router.get('/', async (req, res) => {
 
 
 // Get Product By Id Route
-router.get('/:id', Plugins.getProductById, async (req, res) => res.status(200).json({ product: res.product }))
+router.get('/:id', Plugins.getProductById, async (req, res) => {
+    return res.status(200).json({ product: res.product })
+})
 
 
 // Delete Product By Id Route
@@ -78,7 +82,7 @@ router.delete('/:id', Plugins.getProductById, async (req, res) => {
             }
         }
 
-        res.status(200).json({ msg: logMsg(`Product deleted successfully!`) })
+        return res.status(200).json({ msg: logMsg(`Product deleted successfully!`) })
     } catch (error) {
         return res.status(500).json({ msg: logMsg(error) })
     }
@@ -103,7 +107,7 @@ router.patch('/:id', Plugins.getProductById, async (req, res) => {
             }
         }
         await res.product.save()
-        res.status(200).json({ newproduct: res.product })
+        return res.status(200).json({ newproduct: res.product })
 
     } catch (error) {
         return res.status(500).json({ msg: logMsg(error) })

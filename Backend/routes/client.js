@@ -5,7 +5,7 @@ const models = require('../plugins/models')
 const logMsg = (body) => `[Clients Router] ${body}`
 
 const Plugins = {
-    getClientById: async (req, res) => {
+    getClientById: async (req, res, next) => {
         const id = req.params.id
         try {
             const client = await models.Client.findOne({ _id: id })
@@ -15,9 +15,10 @@ const Plugins = {
         } catch (error) {
             return res.status(500).json({ msg: logMsg(error) })
         }
+        next()
     },
-    validateNewClient: async (req, res) => {
-        const clientEmailAddress = req.body.clientEmailAddress
+    validateNewClient: async (req, res, next) => {
+        const clientEmailAddress = req.body.clientEmail
         try {
             const clients = await models.Client.find({ clientEmail: clientEmailAddress })
             res.newClient = clients === null || clients.length === 0
@@ -25,6 +26,7 @@ const Plugins = {
         } catch (error) {
             return res.status(500).json({ msg: logMsg(error) })
         }
+        next()
     },
 }
 
@@ -32,7 +34,7 @@ const router = express.Router()
 
 // Registration Route
 router.post('/register', Plugins.validateNewClient, async (req, res) => {
-    if (res.newClient) return res.status(403).json({ msg: logMsg(`Client already exists!`) })
+    if (!res.newClient) return res.status(403).json({ msg: logMsg(`Client already exists!`) })
 
     try {
         const { clientName, clientEmail, clientAccessCode } = req.body
@@ -40,8 +42,8 @@ router.post('/register', Plugins.validateNewClient, async (req, res) => {
             clientName: clientName,
             clientEmail: clientEmail,
             clientAccessCode: clientAccessCode,
-            orders: [],
             firstOrderDate: null,
+            
         })
 
         client = await client.save()
@@ -79,7 +81,7 @@ router.get('/:id', Plugins.getClientById, async (req, res) => res.status(200).js
 // Get All
 router.get('/', async (req, res) => {
     try {
-        const clients = await models.Client.findAll()
+        const clients = await models.Client.find()
         if (!clients || clients.length === 0) return res.status(404).json({ msg: logMsg(`Clients not found`) })
 
         return res.status(200).json({ clients: clients })

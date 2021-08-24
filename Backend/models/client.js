@@ -13,8 +13,7 @@ module.exports = mongoose.model('Client', new mongoose.Schema({
     },
     firstOrderDate: {
         type: Date,
-        required: true,
-        default: null
+        default: undefined
     },
     clientEmail: {
         type: String,

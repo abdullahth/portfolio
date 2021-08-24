@@ -11,16 +11,15 @@ const Plugins = {
             const product = await models.Product.findOne({ _id: id })
             if (!product) return res.status(404).json({ msg: logMsg('Product not found!') })
 
-            // const packages = []
-            // for (const element in product.packages) {
-            //     const package = await models.Package.findOne({ _id: element })
-            //     if (package !== null) {
-            //         packages.push(package)
-            //     }
+            const packages = []
+            for (const element in product.packages) {
+                const package = await models.Package.findOne({ _id: element })
+                if (package !== null) {
+                    packages.push(package)
+                }
 
-            // }
-            // product.packages = packages
-            console.log(product)
+            }
+            product.packages = packages
             res.product = product
 
         } catch (error) {

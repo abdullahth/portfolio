@@ -1,4 +1,4 @@
-class Client {
+class Order {
   late String clientId, productId, packageId;
 
   late List offers, galleryImagesIds, tasks;
@@ -7,7 +7,7 @@ class Client {
 
   late DateTime placment, delivery;
 
-  Client({
+  Order({
     required this.clientId,
     required this.productId,
     required this.packageId,
@@ -19,7 +19,7 @@ class Client {
     required this.delivery,
   });
 
-  Client.fromMap(Map map) {
+  Order.fromMap(Map map) {
     this.clientId = map['clientId'];
     this.productId = map['productId'];
     this.packageId = map['packageId'];
